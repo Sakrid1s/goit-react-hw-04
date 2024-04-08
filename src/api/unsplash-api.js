@@ -10,6 +10,5 @@ export async function getUnsplashImages(inputValue, page) {
     per_page: 15,
   };
   const res = await axios.get(url, { params });
-  console.log(res);
   return res.data;
 }
