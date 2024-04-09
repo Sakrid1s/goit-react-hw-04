@@ -7,7 +7,7 @@ const ImageGallery = ({ imageArray }) => {
         {
           imageArray.map(img => (
             <li key={img.id}>
-              <ImageCard arrayImage={img} />
+              <ImageCard imageArray={img} />
             </li>
           )) /* Набір елементів списку із зображеннями */
         }
