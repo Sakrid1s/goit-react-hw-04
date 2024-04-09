@@ -13,7 +13,14 @@ const ImageModal = ({ image, isOpen, closeModal }) => {
   };
   return (
     <div>
-      <Modal isOpen={isOpen} closeModal={closeModal} style={customStyles}>
+      <Modal
+        isOpen={isOpen}
+        closeModal={closeModal}
+        style={customStyles}
+        onRequestClose={closeModal}
+        contentLabel="Image modal"
+        appElement={document.getElementById('root')}
+      >
         <img src={image} alt="" />
       </Modal>
     </div>
