@@ -6,7 +6,7 @@ import SearchBar from './components/searchBar/SearchBar';
 function App() {
   const [image, setImage] = useState([]);
   const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
+  const [searchValue, setSearchValue] = useState('');
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -15,7 +15,7 @@ function App() {
       try {
         setImage([]);
         setLoading(true);
-        const data = await getUnsplashImages(search, page);
+        const data = await getUnsplashImages(searchValue, page);
         const [results] = data;
         if (results.length === 1) {
           setIsError(true); // поставить помилку через бібліотеку
@@ -27,10 +27,14 @@ function App() {
       }
     }
     fetchImages();
-  }, [search, page]);
+  }, [searchValue, page]);
+
+  const handleSearch = async inputValue => {
+    setSearchValue(inputValue);
+  };
   return (
     <>
-      <SearchBar />
+      <SearchBar handleSearch={handleSearch} />
     </>
   );
 }

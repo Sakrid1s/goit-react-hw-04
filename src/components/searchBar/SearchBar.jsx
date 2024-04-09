@@ -1,23 +1,24 @@
 import toast, { Toaster } from 'react-hot-toast';
 
-const SearchBar = ({ onSubmit }) => {
+const SearchBar = ({ handleSearch }) => {
   const notify = () => toast.error('Bad request.');
   const handleSubmit = event => {
     event.preventDefault();
     const form = event.target;
-    const inputValue = form.elements.search.value;
+    const inputValue = form.elements.input.value;
     if (inputValue.trim() === '') {
       notify();
       form.reset();
       return;
     }
-    onSubmit(inputValue);
+    handleSearch(inputValue);
     form.reset();
   };
   return (
     <header>
       <form onSubmit={handleSubmit}>
         <input
+          name="input"
           type="text"
           autoComplete="off"
           autoFocus
