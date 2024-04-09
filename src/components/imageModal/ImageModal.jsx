@@ -1,8 +1,6 @@
 import Modal from 'react-modal';
 
-const ImageModal = ({ imageArray }) => {
-  const { urls, description } = imageArray;
-  const { regular } = urls;
+const ImageModal = ({ image, isOpen, closeModal }) => {
   const customStyles = {
     content: {
       top: '50%',
@@ -15,8 +13,8 @@ const ImageModal = ({ imageArray }) => {
   };
   return (
     <div>
-      <Modal>
-        <img src={regular} alt={description} />
+      <Modal isOpen={isOpen} closeModal={closeModal} style={customStyles}>
+        <img src={image} alt="" />
       </Modal>
     </div>
   );

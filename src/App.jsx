@@ -15,6 +15,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     async function fetchImages() {
@@ -43,21 +44,31 @@ function App() {
     setPage(prevPage => prevPage + 1);
   };
 
-  const openModal = () => {
+  const openModal = img => {
     setIsOpen(true);
+    setSelectedImage(img);
   };
 
   const closeModal = () => {
     setIsOpen(false);
+    setSelectedImage(null);
   };
 
   return (
     <>
       <SearchBar handleSearch={handleSearch} />
-      {isError ? <ErrorMessage /> : <ImageGallery imageArray={images} />}
+      {isError ? (
+        <ErrorMessage />
+      ) : (
+        <ImageGallery imageArray={images} onImgClick={openModal} />
+      )}
       {loading && <Loader />}
       {images.length > 0 && <LoadMoreBtn onClick={onLoadMoreBtnClick} />}
-      <ImageModal imageArray={images} isOpen={isOpen} />
+      <ImageModal
+        image={selectedImage}
+        isOpen={isOpen}
+        closeModal={closeModal}
+      />
     </>
   );
 }

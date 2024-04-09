@@ -1,9 +1,12 @@
-const ImageCard = ({ imageArray }) => {
+const ImageCard = ({ imageArray, onImgClick }) => {
   const { urls, description } = imageArray;
-  const { small } = urls;
+  const { small, regular } = urls;
+  const handleClick = () => {
+    onImgClick(regular);
+  };
   return (
     <div>
-      <img src={small} alt={description} />
+      <img src={small} alt={description} onClick={handleClick} />
     </div>
   );
 };

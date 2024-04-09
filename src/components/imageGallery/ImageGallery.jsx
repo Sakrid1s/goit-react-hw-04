@@ -1,13 +1,13 @@
 import ImageCard from '../imageCard/ImageCard';
 
-const ImageGallery = ({ imageArray }) => {
+const ImageGallery = ({ imageArray, onImgClick }) => {
   return (
     <div>
       <ul>
         {
           imageArray.map(img => (
             <li key={img.id}>
-              <ImageCard imageArray={img} />
+              <ImageCard imageArray={img} onImgClick={onImgClick} />
             </li>
           )) /* Набір елементів списку із зображеннями */
         }
