@@ -23,7 +23,6 @@ function App() {
         setLoading(true);
         const data = await getUnsplashImages(searchValue, page);
         const res = data.results;
-        console.log(res);
         setImages(prevImages => [...prevImages, ...res]);
       } catch (error) {
         setIsError(true);
