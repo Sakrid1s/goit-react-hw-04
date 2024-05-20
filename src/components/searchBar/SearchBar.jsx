@@ -16,7 +16,7 @@ const SearchBar = ({ handleSearch }) => {
     form.reset();
   };
   return (
-    <header>
+    <header className={css.header}>
       <form onSubmit={handleSubmit} className={css.form}>
         <input
           className={css.formInput}
@@ -24,7 +24,7 @@ const SearchBar = ({ handleSearch }) => {
           type="text"
           autoComplete="off"
           autoFocus
-          placeholder="Search images and photos"
+          placeholder="Search images and photos..."
         />
         <button type="submit" className={css.formBtn}>
           Search

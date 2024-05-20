@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { getUnsplashImages } from './api/unsplash-api';
 import SearchBar from './components/searchBar/SearchBar';
 import ImageGallery from './components/imageGallery/ImageGallery';
@@ -7,6 +6,7 @@ import Loader from './components/loader/Loader';
 import ErrorMessage from './components/errorMessage/ErrorMessage';
 import LoadMoreBtn from './components/loadMoreBtn/LoadMoreBtn';
 import ImageModal from './components/imageModal/ImageModal';
+import './App.css';
 
 function App() {
   const [images, setImages] = useState([]);
@@ -16,6 +16,7 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [hasMoreImages, setHasMoreImages] = useState(true);
 
   useEffect(() => {
     async function fetchImages() {
@@ -23,20 +24,27 @@ function App() {
         setLoading(true);
         const data = await getUnsplashImages(searchValue, page);
         const res = data.results;
-        setImages(prevImages => [...prevImages, ...res]);
+        if (res.length === 0) {
+          setHasMoreImages(false);
+        } else {
+          setImages(prevImages => [...prevImages, ...res]);
+        }
       } catch (error) {
         setIsError(true);
       } finally {
         setLoading(false);
       }
     }
-    fetchImages();
+    if (searchValue) {
+      fetchImages();
+    }
   }, [searchValue, page]);
 
   const handleSearch = async inputValue => {
     setSearchValue(inputValue);
     setPage(1);
     setImages([]);
+    setHasMoreImages(true);
   };
 
   const onLoadMoreBtnClick = async () => {
@@ -62,7 +70,9 @@ function App() {
         <ImageGallery imageArray={images} onImgClick={openModal} />
       )}
       {loading && <Loader />}
-      {images.length > 0 && <LoadMoreBtn onClick={onLoadMoreBtnClick} />}
+      {images.length > 0 && hasMoreImages && (
+        <LoadMoreBtn onClick={onLoadMoreBtnClick} />
+      )}
       <ImageModal
         image={selectedImage}
         isOpen={isOpen}
